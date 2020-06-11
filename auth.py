@@ -1,15 +1,15 @@
-import hashlib
-import yaml
+import hashlib 
+import sqlite3
 
 def is_valid_credentials(username, password):
-    with open("credentials.yaml", "r") as stream:
-        users = yaml.safe_load(stream)
-        password_hash = hashlib.sha256(password.encode("utf-8")).hexdigest()
-        for i in range(len(users)):
-            if username == users[i]["username"] and \
-                password_hash == users[i]["password_hash"]:
-                return True
-        return False
+    password_hash = hashlib.sha256(password.encode("utf-8")).hexdigest()
+    conn = sqlite3.connect('ppab6.db')
+    c = conn.cursor()
+    for row in c.execute('''SELECT username, password_hash FROM users WHERE
+            username LIKE ?''', (username,)):
+        print(row)
+
+    return False
 
 if __name__ == '__main__':
     username = input("User name: ")
