@@ -7,8 +7,10 @@ def is_valid_credentials(username, password):
     c = conn.cursor()
     for row in c.execute('''SELECT username, password_hash FROM users WHERE
             username LIKE ?''', (username,)):
-        print(row)
-
+        expected_username, expected_password_hash = row
+        if username == expected_username and \
+            password_hash == expected_password_hash:
+            return True
     return False
 
 if __name__ == '__main__':

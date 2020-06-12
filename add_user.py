@@ -9,7 +9,7 @@ def add():
     conn = sqlite3.connect('ppab6.db')
     c = conn.cursor()
     c.execute('''INSERT INTO users VALUES (?,?)''', (username, password_hash))
-
+    conn.commit()
 
 if __name__ == '__main__':
     add()

@@ -7,6 +7,7 @@ def setup():
                     username VARCHAR,
                     password_hash VARCHAR
                 )''')
+    conn.commit()
 
 if __name__ == '__main__':
     setup()
